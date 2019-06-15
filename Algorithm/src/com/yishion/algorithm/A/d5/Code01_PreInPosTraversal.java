@@ -2,6 +2,7 @@ package com.yishion.algorithm.A.d5;
 
 import java.util.Stack;
 
+//打印前序、中序、后序
 public class Code01_PreInPosTraversal {
 
 	public static class Node {
@@ -113,13 +114,28 @@ public class Code01_PreInPosTraversal {
 	}
 
 	public static void main(String[] args) {
-		Node head = new Node(1);
-		head.left = new Node(2);
-		head.right = new Node(3);
-		head.left.left = new Node(4);
-		head.left.right = new Node(5);
-		head.right.left = new Node(6);
-		head.right.right = new Node(7);
+		Node head = new Node(30);
+
+		head.left = new Node(29);
+		head.right = new Node(26);
+
+		head.left.left = new Node(20);
+		head.left.right = new Node(10);
+
+		head.right.left = new Node(9);
+		head.right.right = new Node(8);
+
+		head.left.left.left = new Node(7);
+		head.left.left.right = new Node(6);
+
+		head.left.right.left = new Node(5);
+		head.left.right.right = new Node(4);
+
+		head.right.left.left = new Node(3);
+		head.right.left.right = new Node(2);
+
+		head.right.right.left = new Node(1);
+		head.right.right.right = new Node(0);
 
 		preOrderRecur(head);
 		System.out.println();

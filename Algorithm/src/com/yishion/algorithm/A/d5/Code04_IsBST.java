@@ -1,6 +1,6 @@
 package com.yishion.algorithm.A.d5;
 
-//是否是搜索二叉树
+//是否是搜索二叉树----------------->某一颗子树是不是搜索二叉树
 public class Code04_IsBST {
 
 	public static class Node {
@@ -14,45 +14,48 @@ public class Code04_IsBST {
 
 	}
 
-	public static class ReturnType {
-		public boolean isBST;
+	private static class RT {
+		public boolean isBst;
 		public int max;
 		public int min;
 
-		public ReturnType(boolean isBST, int max, int min) {
-			this.isBST = isBST;
+		public RT(boolean isBst, int max, int min) {
+			this.isBst = isBst;
 			this.max = max;
 			this.min = min;
 		}
+
 	}
 
-	private static ReturnType process(Node head) {
+	public static RT isBST(Node head) {
 		if (head == null) {
-			return new ReturnType(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+			return new RT(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		}
-		ReturnType leftData = process(head.left);
-		ReturnType rightData = process(head.right);
-		int max = Math.max(head.value, Math.max(leftData.max, rightData.max));
-		int min = Math.min(head.value, Math.min(leftData.min, rightData.min));
 
-		boolean isBst = leftData.isBST && rightData.isBST
+		RT leftData = isBST(head.left);
+		RT rightData = isBST(head.right);
+
+		boolean isBst = leftData.isBst && rightData.isBst
 				&& (leftData.max < head.value) && (rightData.min > head.value);
-		return new ReturnType(isBst, max, min);
-	}
+		int max = Math.max(Math.max(rightData.max, leftData.max), head.value);
+		int min = Math.min(Math.min(rightData.min, leftData.min), head.value);
 
-	public static boolean isBSTTree(Node head) {
-		return process(head).isBST;
+		return new RT(isBst, max, min);
 	}
 
 	public static void main(String[] args) {
-		Node head = new Node(4);
+		Node head = new Node(100);
+
 		head.left = new Node(2);
+		head.right = new Node(6);
+
 		head.left.left = new Node(1);
 		head.left.right = new Node(3);
-		head.right = new Node(6);
+
 		head.right.left = new Node(5);
 		head.right.right = new Node(7);
-		System.out.println(isBSTTree(head));
+
+		System.out.println(isBST(head).isBst);
 
 	}
 
